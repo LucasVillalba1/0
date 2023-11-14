@@ -1,0 +1,43 @@
+<div id="rock-paper-scissors">
+    <button onclick="playGame('🪨 Rock')">🪨 Rock</button>
+    <button onclick="playGame('📃 Paper')">📃 Paper</button>
+    <button onclick="playGame('✂️ Scissors')">✂️ Scissors</button>
+    
+    <button onclick="resetGame()">Reset Game</button>
+    <p id="message"></p>
+    <h2 id="score">👩‍💻 Player: 0, 🤖 Computer: 0</h2>
+    <script>
+        let playerScore = 0;
+        let computerScore = 0;
+        function computerPlay() {
+            const choices = ['🪨 Rock', '📃 Paper', '✂️ Scissors'];
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
+        }
+        function playGame(playerSelection) {
+            const computerSelection = computerPlay();
+            let message = '';
+            if (playerSelection === computerSelection) {
+                message = `You chose ${playerSelection}. I chose ${computerSelection}.\n\nTie!`;
+            } else if (
+                (playerSelection === '🪨 Rock' && computerSelection === '✂️ Scissors') ||
+                (playerSelection === '📃 Paper' && computerSelection === '🪨 Rock') ||
+                (playerSelection === '✂️ Scissors' && computerSelection === '📃 Paper')
+            ) {
+                playerScore += 1;
+                message = `You chose ${playerSelection}. I chose ${computerSelection}.\nYou win!\n${playerSelection} beats ${computerSelection}.`;
+            } else {
+                computerScore += 1;
+                message = `You chose ${playerSelection}. I chose ${computerSelection}.\nYou lose!\n${computerSelection} beats ${playerSelection}.`;
+            }
+            document.getElementById('message').textContent = message;
+            document.getElementById('score').textContent = `👩‍💻 Player: ${playerScore}, 🤖 Computer: ${computerScore}`;
+        }
+        function resetGame() {
+            playerScore = 0;
+            computerScore = 0;
+            document.getElementById('message').textContent = '';
+            document.getElementById('score').textContent = `👩‍💻 Player: ${playerScore}, 🤖 Computer: ${computerScore}`;
+        }
+    </script>
+</div>
